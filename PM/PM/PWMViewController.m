@@ -106,7 +106,7 @@
 }
 
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -118,8 +118,16 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSInteger row = [indexPath row];
+    NSNumber *index = [NSNumber numberWithInteger:row];
+    NSArray *tempArray = [cacheArray objectAtIndex:row];
+    PWMAddAccountViewController *showInformation = [[PWMAddAccountViewController alloc]initWithNibNameStyle:@"PWMAddAccountViewController" array:tempArray index:index];
+    [self.navigationController pushViewController:showInformation animated:YES];
+    
+}
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath

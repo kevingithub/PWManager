@@ -13,9 +13,14 @@
     IBOutlet UITextField *titleField;
     IBOutlet UITextField *usernameField;
     IBOutlet UITextField *passwordField;
+    NSArray *showInfoArray;
+    BOOL isAddAccount;
+    NSNumber *arrayIndex;
 }
 
 -(IBAction)saveAccount:(id)sender;
 -(IBAction)cancelAddAccount:(id)sender;
+- (id)initWithNibNameStyle:(NSString *)nibNameOrNil
+                     array:(NSArray *)array index:(NSNumber*)index;
 
 @end

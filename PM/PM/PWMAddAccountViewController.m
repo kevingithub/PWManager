@@ -19,9 +19,22 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        isAddAccount = TRUE;
     }
     return self;
 }
+- (id)initWithNibNameStyle:(NSString *)nibNameOrNil
+                     array:(NSArray *)array index:(NSNumber*)index{
+    self = [super initWithNibName:nibNameOrNil bundle:nil];
+    if (self) {
+        // Custom initialization
+        showInfoArray = array;
+        isAddAccount = FALSE;
+        arrayIndex = index;
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
@@ -32,14 +45,26 @@
     if (!tempArray) {
         tempArray = [[NSMutableArray alloc]initWithCapacity:0];
     }
+    if (showInfoArray){
+        titleField.text=(NSString*)[showInfoArray objectAtIndex:0];
+        usernameField.text=(NSString*)[showInfoArray objectAtIndex:1];
+        passwordField.text=(NSString*)[showInfoArray objectAtIndex:2];
+    }
 }
 
 -(IBAction)saveAccount:(id)sender{
     __strong NSArray *array = [[NSArray alloc]initWithObjects:
                       titleField.text, usernameField.text,passwordField.text,nil];
-    [tempArray addObject:array];
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
-    [loanParameter setObject:tempArray forKey:@"basic"];
+    if (isAddAccount){
+        [tempArray addObject:array];
+        [loanParameter setObject:tempArray forKey:@"basic"];
+    }else{
+        NSInteger row =[arrayIndex integerValue];
+        [tempArray replaceObjectAtIndex:row withObject:array];
+    }
+    
+
     [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
