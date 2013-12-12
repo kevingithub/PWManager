@@ -7,6 +7,7 @@
 //
 
 #import "PWMAddAccountViewController.h"
+#import <CommonCrypto/CommonCryptor.h>
 
 @interface PWMAddAccountViewController ()
 
@@ -20,6 +21,7 @@
     if (self) {
         // Custom initialization
         isAddAccount = TRUE;
+        self.title = @"添加新记录";
     }
     return self;
 }
@@ -31,6 +33,7 @@
         showInfoArray = array;
         isAddAccount = FALSE;
         arrayIndex = index;
+        self.title = @"查看记录";
     }
     return self;
 }
@@ -41,7 +44,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
-    tempArray = [loanParameter objectForKey:@"basic"];
+    tempArray = [NSMutableArray arrayWithArray:[loanParameter objectForKey:@"basic"]];
+
+    
     if (!tempArray) {
         tempArray = [[NSMutableArray alloc]initWithCapacity:0];
     }

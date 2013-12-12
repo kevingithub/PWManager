@@ -52,13 +52,13 @@
 }
 #pragma mark - account about
 -(IBAction)addNewAccount:(id)sender{
-    NSLog(@"add new account");
+//    NSLog(@"add new account");
     PWMAddAccountViewController *addAccountViewController = [[PWMAddAccountViewController alloc]initWithNibName:@"PWMAddAccountViewController" bundle:Nil];
     [self.navigationController pushViewController:addAccountViewController animated:YES];
     
 }
 -(IBAction)editAccount:(id)sender{
-    NSLog(@"edit account");
+//    NSLog(@"edit account");
     self.tableView.editing = !self.tableView.editing;
 }
 
@@ -93,7 +93,7 @@
     
     
     cell.textLabel.text = (NSString*)[tempArray objectAtIndex:0];
-    NSLog(@"%@",[tempArray objectAtIndex:0]);
+//    NSLog(@"%@",[tempArray objectAtIndex:0]);
     return cell;
 }
 
@@ -110,9 +110,14 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger row = [indexPath row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [cacheArray removeObjectAtIndex:row];
+        NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+        [loanParameter setObject:cacheArray forKey:@"basic"];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

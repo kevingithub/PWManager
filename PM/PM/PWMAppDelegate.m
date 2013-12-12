@@ -7,12 +7,15 @@
 //
 
 #import "PWMAppDelegate.h"
+#import "MobClick.h"
 
 @implementation PWMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+//     [MobClick startWithAppkey:@"52a96a1e56240b90310f3e45"];//umeng product ID:PM
+    [MobClick startWithAppkey:@"52a96a1e56240b90310f3e45" reportPolicy:REALTIME channelId:@"Web"];
     return YES;
 }
 							
